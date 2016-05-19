@@ -39,7 +39,7 @@ knitr::knit_hooks$set(inline = function(x) {
        }
    })
 ```
-  
+
 # Introduction{.unnumbered}
 
 Publication fees, often paid by funders or universities, are a widely discussed open access business model. Yet, how and to what extent these activities are effective in terms of the number of supported research articles and associated costs remains under debate. This paper describes the Open APC initiative[^2], in which German universities and research organization share spendings on open access publication fees, and how it is currently implemented. More specifically, it addresses three problem areas when studying the economical effects of open access publishing: fragmentation of open access funding, variable pricing schemes and the comparison across research institutions. Such an approach extends methods and improves data collection activities for researchers and practitioners, as well as contribute to a better understanding of factors affecting the analysis of publication fees in open access publishing.
@@ -52,102 +52,21 @@ The open access landscape in Germany, which is the focus of this paper, shares t
 
 The growing share of articles published in fee-based open access journals in recent years has led to calls for an unified approach towards funding of publication fees. The Allianz der Wissenschaftsorganisationen[^10c], representing all major research organizations in Germany, thus marks transparency as a major means to sustain an "adequate open access publication system" [@allianz]. However, there are various ways to achieve this goal. The existing approaches in Austria and the United Kingdom have one institution in charge to collect and analyze the data. The history of the Open APC initiative is rather bottom-up: In May 2014, Bielefeld University Library began to share its expenditures for publication fees. The library put its approach to the working group "Electronic Publishing" of the Deutsche Initiative für Netzwerkinformation (DINI)[^11] as a basis for discussion, and invited others to participate. Reflecting the increasing demand for publicly available data, contributions from Universität Regensburg and Universität Hannover followed soon after. As of writing, 29 universities and research institutes voluntary reported their data to the Open APC initiative to be included into a unified data-set of all expenditures.
 
-In this paper, we present the technical workflow of the Open APC initiative. We describe how the data-set is curated and which tools are used in order to produce, disseminate, and preserve the Open APC spending data. Presenting our results, we will particularly discuss how and to what extent the use of the CrossRef index accommodates the demand of disambiguated bibliographic information about journals and publishers when reporting about funding of open access journal articles. CrossRef, a Digital Object Identifiers (DOI) registration agency for scholarly literature, associate these persistent links with metadata CrossRef members such as publishers and research societies contribute.<!--  Our analysis of the data contributed so far illustrates possible ways of using this data-set.  We are able to show the importance of reusable open data and encourage other possible data contributors to also publish their payment information through this initiative. The goal is to strengthen the insight on open access funding, enabling institutions to better plan for a transition to open access.
--->
+Drawing on self-reported cost data, we asked to what extend German universities and research institutions covered publication fees for open access journal articles over the last years. More specifically, we addressed three questions that arose while studying fee-based open access publishing:
+
+- how to gather bibliographic metadata about sponsored open access journal articles,
+- how is institutional publication fee spending distributed over publishers and journal titles,
+- what is the share of sponsored articles in open access journals versus hybrid journals.
 
 # Methods and Materials{.unnumbered}
 
-The major goal of the Open APC initiative is to gain insights into expenses for publication fees by collecting data directly from the institutions paying on behalf of the authors they support. These institutions can report best on the most important part: How much they have spent for each article.  For this aim, the Open APC initiative applies open data methods, designed around the idea of sharing the collected data as permissive as possible. At its core is a data pipeline to collect and to process the contributed data. In this section, we discuss the general idea of this pipeline and describe its stages: data submission (by spending institutions), merging contributions, re-using data, preserving data, and engaging with our communities to increase participation.
+The study examined cost information provided by the Open APC initiative. Under this umbrella, German universities and research institutions shared details of how much open access journals charged authors as open data. We analysed the data-set that was released on 13 May 2016 and is stored as version v2.4.2 in the corresponding GitHub repository. At the time of our study, the data-set reported the amount institutions paid for each article including value added tax, and the year an article was invoiced. Bibliographic metadata consisted of the Digital Object Identifier (DOI) to uniquely identify an article, the publisher, and information about the journal titles. The Open APC initiative automatically retrieved this publisher and journal information from CrossRef, a DOI minting agency for scholarly literature. Furthermore, the data-set differentiated whether an open access article was published in a subscription based journal ("hybrid journal").
 
-## General idea{.unnumbered}
+For gathering normalized publisher and journal titles, we re-aggregated the bibliographic metadata from CrossRef using the DOI on 19 May 2016 because of two reasons: First, CrossRef provides incremental metadata updates to reflect the dynamic landscape of academic publishing including ongoing mergers of publishing houses or name changes. A prominent example in this regard is the merger of the two large publishing houses Springer Business + Media and Nature Publishing that now operate under "Springer Nature". In contrast to this, the Open APC initiative normalized publisher and journal titles based on CrossRef shortly after the institution had provided its cost data. Therefore, re-aggregating the data-set ensures unique reference to currently existing publishers and journals at the expense of information about to which publisher a journal belonged while a sponsored article was published.
 
-Our approach drew on general open data guidelines that state to "keep things simple" and to "engage early and engage often" with data providers and potential users [@OpenDataHandbook]. We therefore chose a simple data scheme, built our pipeline around the popular social coding platform GitHub, and re-used information from bibliographic indexes.
+Secondly, CrossRef is not the only registration agency for DOI's, but also DataCite and Medra mint DOIs for scholarly work. While obtaining bibliographic information from CrossRef, we also examined the number of publications for which each of the DOI registration agency provided metadata during our study. As a client, we used the R package rcrossref [@rcrossref] developed and maintained by the rOpenSci initiative.[^6] With the function `cr_cn`, we requested the linking resource `application/vnd.crossref.unixsd+xml`, which main function is to support text mining activities.[^5] The advantage of this XML format was that it distinguishes full and abbreviated journal titles as well as the media types of ISSN's, the International Standard Serial Number used to identify journals. It also contained license information and disambiguated publisher information, thus avoiding confusion about licensing and naming of publisher houses other studies were faced with when working with self-reported data [@woodward_2014]. In cases where no bibliographic information could be obtained, we used the Open APC values.
 
-We followed good practice of other open data projects to guarantee that the data is as open as possible. From the beginning, we emphasized that this also includes information on submissions -- date of submission, contributors, etc. -- and open file formats.
-Because institutions should be allowed to self-report data and updates at different times, tracking initial submissions and data-set updates is particularly important.
-
-All data and documentation reside, therefore, on GitHub. Git, a distributed version control system, powers GitHub and allows people to collaborate on software projects. Git keeps a log of changes made in the source code and manages to synchronize local copies of the very same software repository. Because of its distributed and social characteristics, Git in general and GitHub in particular are suitable for researchers to mutually curate and share research artifacts including data-sets, analyses, or visualizations [@Ram_2013].
-
-In addition to GitHub, bibliographic indexes are an essential part of our data pipeline. We use CrossRef to normalize bibliographic metadata. This ensures automatic authority control for journal and publisher titles, which are the most appropriate levels of aggregations when analyzing expenditures for open access articles [@Pinfield_2015]. We also check automatically the indexing status of each article in Europe PubMed Central, a large bibliographic index for life-science literature, the multidisciplinary database Web of Science, and the open access source Directory of Open Access Journals (DOAJ).
-
-## Data Submission{.unnumbered}
-
-Participants use a template to self-report data (see Table 1). Data structured in this way enables the fetch of additional data from external sources, and ensures that the merge into a single data-set succeeds. By collecting as little data as possible from the institutions, this approach allows for changes and the addition of new fields if required.
-
-
-|Variable               |Description                              |Required  |
-|:----------------------|:----------------------------------------|:-------- |
-|`institution`          |Top-level organisation e.g. MPG          | mandatory|
-|`period` 		          |Year of APC payment (YYYY)               | mandatory|
-|`euro` 		            |The amount paid in EURO (incl. VAT)      | mandatory|
-|`doi`                  |Digital Object Identifier                | mandatory|
-|`is_hybrid`            |Published in a access journal?           | mandatory|
-|`publisher`          	|Name of publication house                | optional |
-|`journal_full_title`   |Full name of periodical                  | optional |
-|`issn` 		            |International Standard Serial Number.    | optional |
-
-
-Table: Mandatory and optional data elements for disclosing funding of open access publication fees
-
-The data scheme reflects how the Wellcome Trust [@wellcome_apc], the Austrian Science Fund FWF [@fwf_apc] and Jisc [@Lawson_data_2015] organized data about expenses for open access publication fees. The project requests items that are already present at the research institutions for internal reporting purposes [@Pinfield_2015]. Guidance[^23] available to the participants furthermore refers to the principles of *tidy data* [@tidy-data]. This responds to issues encountered in the United Kingdom, when the inexperienced use of spreadsheet software like Excel lead to misaligned tables [@woodward_2014]. The principle of tidy data intends to reduce data cleaning efforts before statistical analyses. The three principles of tidy data state that, firstly, each variable must form a column, secondly, each observation must form a row, and, finally, each type of observational unit must form a table.  To prevent messy data, it is also crucial that unknown values are not left empty. In our case, we use the R convention `NA` for handling those values.
-
-Data contributors collect the data in different systems. After preparing the data, it must be exported in the csv standard, a plain text file format for tabular data supported by most spreadsheet software that can be easily logged with version control systems like Git.
-
-To illustrate a sample data contribution displaying mandatory information in the csv format:
-
-```
-"Hannover U",2013,1241.02,"10.1371/journal.pone.0063501",FALSE
-```
-
-Contributors store the csv file into a folder that also contains a README file. Written in plain text or Markdown, the README contains information about the data-set and the contributing institution. The submission itself is facilitated through GitHub's pull request mechanism: contributors fork the initiative's data, add their contributions, upload their modified copy to their repository, and request importing their data into the initiative's repository by alerting the maintainers through sending a "pull request".
-
-## Data curation{.unnumbered}
-
-<!--Bielefeld University Library acts as curator and merges the contributed spreadsheets into one general data-set.--> By using open software, we, as curators, retrieve additional data elements based on the article's DOI. This avoids manual cleaning efforts the other initiatives were faced with. Because the DOI is at the center of the data curation, data normalization starts with a check of the DOI columns for possible duplicates and white space. CrossRef is then queried for article metadata matching the particular DOI.
-
-CrossRef provides several APIs to search for bibliographic information it indexes during DOI registration. In our case, we query the CrossRef REST API[^18] by using content negotiation. As resource type, we request the format `application/vnd.crossref.unixsd+xml`, which main function is to support text mining activities.[^5] The advantage of this XML format is that it distinguishes full and abbreviated journal titles as well as the media types of ISSNs, the International Standard Serial Number used to identify journals. It also contains license information and disambiguated publisher information, thus avoiding confusion about licensing and naming of publisher houses [@woodward_2014].
-
-As a client, we use the R package `rcrossref` [@rcrossref] developed and maintained by the rOpenSci initiative.[^6] With the function `cr_cn`, the client supports all linking types. Table 2 summarizes the data elements we retrieve:
-
-|Source     	|Data element  |Description                     |
-|:--------------|:-------------------|:------------------------------------|
-|CrossRef   	|`publisher` |Title of Publisher             |
-|CrossRef   	|`journal_full_title` |Full Title of Journal  |
-|CrossRef   	|`issn` |International Standard Serial Numbers (collapsed) |
-|CrossRef   	|`issn_print` |ISSN print |
-|CrossRef   	|`issn_electronic`  |ISSN electronic        |
-|CrossRef   	|`license_ref`  |License of the article     |
-|CrossRef   	|`indexed_in_crossref`  |Indexed in CrossRef? (logical)    |
-|EuropePMC    	|`pmid`  |PubMed ID                 |
-|EuropePMC    	|`pmcid` |PubMed Central ID         |
-|Web of Science |`ut` |Web of Science record ID             |
-|DOAJ           |`doaj` |Is the journal indexed in the DOAJ? (logical)    |
-
-Table: Sources used to automatically enrich the Open APC data-set
-
-In addition to CrossRef, the indexing status for each article in Europe PubMed Central and the Web of Science is checked. Europe PubMed Central, one of the largest database for life science literature, offers a public RESTful web services to access more than 24 million records and 870,000 deposited open access articles [@epmc_2014]. Information from the Web of Science, which provides indexing of open access journal literature [@Walters_2011], is retrieved through the Thomson Reuters Article Match Retrieval Service[^8]. This web interface is available to Bielefeld University Library as part of its Web of Science subscription. Finally, an automatic match with the DOAJ, a comprehensive and openly available registry of open access journals, is performed.
-
-After disambiguating and enriching the data, we append the rows into a single csv file that records all expenses. The data additions are logged with Git and pushed to the source code repository on GitHub.
-
-## Re-use{.unnumbered}
-
-We use the main README file of our data repository as general guide to the Open APC data collection and to present sample analyses. The README itself is written in R Markdown, an authoring format that allows for the combination of the R code, results, and text within one document.[^10] Compiled with knitr [@knitr], the README reflects new data submissions after every build. Sample results include tables summarizing the number of supported articles and costs per institution as well as figures that illustrate the distribution of publication fees.
-
-A blog hosted on GitHub presents all new data contributions.[^12] Since it is technically based on Jekyll,[^13] a static site generator, we can use the same development cycle we have for producing the README files. We write blog posts, which include information about the providing institution and the contributed data-set, in R Markdown, build the posts with `knitr` and, then, log and deploy the files to GitHub with Jekyll, making it possible to reproduce the analytical steps.
-
-## Preservation{.unnumbered}
-
-The data-set itself is licensed under the Open Database License (ODbL) v1.0,[^13a] permitting re-use under conditions of attribution and share-alike. To preserve the collected data, a GitLab installation hosted by Bielefeld University and administrated by Bielefeld University Library, mirrors a copy of the GitHub repository and is accessible via a DOI.[^22]
-
-To provide reference points to particular data contributions, unique version names refer to data submissions or other changes in the source code, which will be then distributed as releases through GitHub. This approach allows others to not only to refer, but also to re-use or self-archive particular snapshots of the data.
-
-## Engagement{.unnumbered}
-
-Besides technical measures, social aspects are crucial to make an open data initiative successful. For the Open APC initiative, we focus on engaging librarians and collaborating within existing networks. In Germany, the working group "Elektronisches Publizieren" of the Deutsche Initiative für Netzwerkinformation (DINI) coordinates these efforts.[^11] The Open APC initiative aims at increasing participation also through the use of social media, workshops, and regular community calls.
-
-A GitHub wiki[^15] shares guidance and interim reports. If participants want to report bugs or propose new functionality, GitHub's "issues" mechanism involves users while keeping track of the discussion. To ensure a constructive environment for all participants, we refer to the code of conduct from Contributor Covenant.[^17]
-
-<!--From our experience, the process described in this chapter has played an important role in getting many institutions to participate in voluntarily sharing information on their expenses for APCs. The data scheme has been revised at the end of 2015, and transformation to a new scheme has happened without any complications. Further adaption, e.g. adding subject classification if a suitable source can be identified, is possible. We encourage institutions and researchers to further work on the data pipeline while preserving its openness and the low entry barrier for new data contributors.-->
+After summarizing publication fee spending per institution, publisher and journal, we compared the share of hybrid journal articles in the Open APC data-set with those of Wellcome Trust, FWF and Jisc. For this aim, we systematically reviewed the proportions for each year from the accompanying literature. 
 
 # Results{.unnumbered}
 
@@ -274,7 +193,7 @@ levels(apc_journal_full_title$journal_full_title)[11:length(levels(apc_journal_f
 
 tt <- apc_journal_full_title %>%
   group_by(journal_full_title) %>%
-  summarise(Articles = n(), Total = sum(euro), Mean = mean(euro), Median = median(euro), Min = min(euro), Max = max(euro)) 
+  summarise(Articles = n(), Total = sum(euro), Mean = mean(euro), Median = median(euro), Min = min(euro), Max = max(euro))
 
 colnames(tt) <- c("Journal", "Articles funded", "Total", "Mean", "Median", "Minimum", "Maximum")
 tt <- format(tt,big.mark=',')
@@ -357,7 +276,7 @@ We thank Andrea Hacker and Ada-Charlotte Regelmann for valuable comments on the 
 
 [^16]: <https://github.com/OpenAPC/openapc-de/issues>
 
-[^16a]: The data is openly available on GitHub. The following analysis is based on version 2.1.13 of the dataset, available at <https://github.com/OpenAPC/openapc-de/tree/v2.1.13>. 
+[^16a]: The data is openly available on GitHub. The following analysis is based on version 2.1.13 of the dataset, available at <https://github.com/OpenAPC/openapc-de/tree/v2.1.13>.
 
 [^17]: <http://contributor-covenant.org/>
 
