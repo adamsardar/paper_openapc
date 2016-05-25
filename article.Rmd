@@ -1,9 +1,11 @@
 ---
-title: 'Disclosing funding sources for open access publication fees: the Open APC initiative'
+title: 'Disclosing funding sources for open access publication fees: the Open APC
+  initiative'
 author:
-- Najko Jahn, Bielefeld University Library, Bielefeld University
-- <a href="http://orcid.org/0000-0002-5111-2788">Marco Tullney</a>, Technische Informationsbibliothek (TIB) - German National Library of Science and Technology, Hannover, Germany
-date: '7 April 2016'
+- Najko Jahn, Bielefeld University Library, Bielefeld University (TIB) - German National
+  Library of Science and Technology, Hannover, Germany
+- <a href="http://orcid.org/0000-0002-5111-2788">Marco Tullney</a>, Technische Informationsbibliothek
+date: "7 April 2016"
 output:
   pdf_document:
     fig_caption: yes
@@ -16,7 +18,21 @@ output:
     theme: readable
 bibliography: literatur.bib
 csl: frontiers.csl
-abstract: Publication fees in open access publishing hold a prominent place on the agenda of researchers, policy-makers, and academic publishers. This paper contributes to the evolving empirical basis on open access funding. It describes the Open APC initiative, in which German universities and research organizations share their expenditures for publication fees. As method, the initiative uses existing open data tools to aggregate and disseminate institutional spending on open access publication fees. In total, 29 German research organizations self-reported funding of 6,279 open access journal articles, which amounted to 8,039,339 €. The average payment for each article was 1,280 €, and the median payment 1,209 €. Our data-set comprises only 53 articles in hybrid journals. With an indexing coverage of 99 %, the findings reveal that the DOI agency CrossRef provides both comprehensive bibliographic coverage of the funded open access journal literature and disambiguated names of journal titles and publishing houses. We show that authority control of these bibliographic information is particularly relevant for the comparative study of the economical effects of open access publishing.
+abstract: Publication fees in open access publishing hold a prominent place on the
+  agenda of researchers, policy-makers, and academic publishers. This paper contributes
+  to the evolving empirical basis on open access funding. It describes the Open APC
+  initiative, in which German universities and research organizations share their
+  expenditures for publication fees. As method, the initiative uses existing open
+  data tools to aggregate and disseminate institutional spending on open access publication
+  fees. In total, 29 German research organizations self-reported funding of 6,279
+  open access journal articles, which amounted to 8,039,339 €. The average payment
+  for each article was 1,280 €, and the median payment 1,209 €. Our data-set comprises
+  only 53 articles in hybrid journals. With an indexing coverage of 99 %, the findings
+  reveal that the DOI agency CrossRef provides both comprehensive bibliographic coverage
+  of the funded open access journal literature and disambiguated names of journal
+  titles and publishing houses. We show that authority control of these bibliographic
+  information is particularly relevant for the comparative study of the economical
+  effects of open access publishing.
 ---
 
 ```{r, echo =FALSE}
@@ -52,47 +68,43 @@ The open access landscape in Germany, which is the focus of this paper, shares t
 
 The growing share of articles published in fee-based open access journals in recent years has led to calls for an unified approach towards funding of publication fees. The Allianz der Wissenschaftsorganisationen[^10c], representing all major research organizations in Germany, thus marks transparency as a major means to sustain an "adequate open access publication system" [@allianz]. However, there are various ways to achieve this goal. The existing approaches in Austria and the United Kingdom have one institution in charge to collect and analyze the data. The history of the Open APC initiative is rather bottom-up: In May 2014, Bielefeld University Library began to share its expenditures for publication fees. The library put its approach to the working group "Electronic Publishing" of the Deutsche Initiative für Netzwerkinformation (DINI)[^11] as a basis for discussion, and invited others to participate. Reflecting the increasing demand for publicly available data, contributions from Universität Regensburg and Universität Hannover followed soon after. As of writing, 29 universities and research institutes voluntary reported their data to the Open APC initiative to be included into a unified data-set of all expenditures.
 
-Drawing on self-reported cost data, we asked to what extend German universities and research institutions covered publication fees for open access journal articles over the last years. More specifically, we addressed three questions that arose while studying fee-based open access publishing:
-
-- how to gather bibliographic metadata about sponsored open access journal articles,
-- how is institutional publication fee spending distributed over publishers and journal titles,
-- what is the share of sponsored articles in open access journals versus hybrid journals.
+The aim of this study was to examine how much German universities and research organisations spent on open access publication fees until 2015. Drawing on self-reported data that German institutions openly shared within the Open APC initiative, we focused our analysis on the amount of institutional publication fee spending, and compared these findings with that of related efforts in Austria and the UK. We also asked how thoroughly self-reported articles were indexed in CrossRef, a DOI minting agency for scholarly literature, and analysed how institutional spending per articles was distributed over publishers and journal titles. 
 
 # Methods and Materials{.unnumbered}
 
-The study examined cost information provided by the Open APC initiative. Under this umbrella, German universities and research institutions shared details of how much open access journals charged authors as open data. We analysed the data-set that was released on 13 May 2016 and is stored as version v2.4.2 in the corresponding GitHub repository. At the time of our study, the data-set reported the amount institutions paid for each article including value added tax, and the year an article was invoiced. Bibliographic metadata consisted of the Digital Object Identifier (DOI) to uniquely identify an article, the publisher, and information about the journal titles. The Open APC initiative automatically retrieved this publisher and journal information from CrossRef, a DOI minting agency for scholarly literature. Furthermore, the data-set differentiated whether an open access article was published in a subscription based journal ("hybrid journal").
+We used cost data released by the Open APC initiative on May 13, 2016, to analyse expenditures on publication fees by German universities and research organisations. In addition to administrative data about the amount paid per article including value added tax and the year of invoicing, the Open APC initiative has begun to share information about whether an article was published in a fully or hybrid open access journal. Bibliographic metadata recorded in the data-set consisted of the Digital Object Identifier (DOI) to uniquely identify an article, and information about publisher and journal titles that were automatically retrieved from CrossRef when available.
 
-For gathering normalized publisher and journal titles, we re-aggregated the bibliographic metadata from CrossRef using the DOI on 19 May 2016 because of two reasons: First, CrossRef provides incremental metadata updates to reflect the dynamic landscape of academic publishing including ongoing mergers of publishing houses or name changes. A prominent example in this regard is the merger of the two large publishing houses Springer Business + Media and Nature Publishing that now operate under "Springer Nature". In contrast to this, the Open APC initiative normalized publisher and journal titles based on CrossRef shortly after the institution had provided its cost data. Therefore, re-aggregating the data-set ensures unique reference to currently existing publishers and journals at the expense of information about to which publisher a journal belonged while a sponsored article was published.
+Data collection in this study involved obtaining cost data from related open data initiatives and retrieving bibliographic metadata updates. To compare self-reported spending on open access publishing by Germany universities and research organisations with that of other initiatives, we reviewed  the openly available spreadsheets provided by the Wellcome Trust [@wellcome_apc], the Austrian Science Fund FWF [@fwf_apc] and Jisc. All data-sets were openly available through a figshare collection. We obtained the size  of funding for all publications and fully open access journal articles. The Euro foreign exchange reference rates from the European Central bank were consulted to convert costs reported in GBP to Euro.
 
-Secondly, CrossRef is not the only registration agency for DOI's, but also DataCite and Medra mint DOIs for scholarly work. While obtaining bibliographic information from CrossRef, we also examined the number of publications for which each of the DOI registration agency provided metadata during our study. As a client, we used the R package rcrossref [@rcrossref] developed and maintained by the rOpenSci initiative.[^6] With the function `cr_cn`, we requested the linking resource `application/vnd.crossref.unixsd+xml`, which main function is to support text mining activities.[^5] The advantage of this XML format was that it distinguishes full and abbreviated journal titles as well as the media types of ISSN's, the International Standard Serial Number used to identify journals. It also contained license information and disambiguated publisher information, thus avoiding confusion about licensing and naming of publisher houses other studies were faced with when working with self-reported data [@woodward_2014]. In cases where no bibliographic information could be obtained, we used the Open APC values.
+To provide a current view on open access publishing, DOIs reported in the Open APC data-set served us as a basis to re-collect bibliographic metadata from CrossRef on May 19, 2016. Since the beginning of data normalisation using CrossRef by the Open APC initiative in 2014, CrossRef has provided incremental metadata updates in which ongoing mergers of publishing houses or name changes are reflected. A prominent example in this regard was the merger of the two large publishing houses Springer Business + Media and Nature Publishing announced on May 6, 2015, that now operate under Springer Nature. In contrast to this, the Open APC initiative gathered publisher and journal titles shortly after an institution provided its expenditures. 
 
-After summarizing publication fee spending per institution, publisher and journal, we compared the share of hybrid journal articles in the Open APC data-set with those of Wellcome Trust, FWF and Jisc. For this aim, we systematically reviewed the proportions for each year from the accompanying literature. 
+As a client to access the CrossRef web service,  we used the R package rcrossref [@rcrossref] developed and maintained by the rOpenSci initiative.[^6] With the function `cr_cn`, we requested the linking resource `application/vnd.crossref.unixsd+xml` used  to support text mining activities.[^5] At the time of our study, this XML format distinguished full and abbreviated journal titles as well as the media types of ISSN's, the International Standard Serial Number used to identify journals. It also contained disambiguated publisher information, thus avoiding confusion about naming of publisher houses other studies were faced with when working with self-reported data [@woodward_2014]. In cases where no bibliographic information could be obtained, we used the Open APC values. Since CrossRef is not the only registration agency for DOI's, but also the agencies DataCite and Medra mint DOIs for scholarly work, we furthermore obtained the DOI agency for each article with the help of the rcrossref client.
+
+- statistical calculations
+
 
 # Results{.unnumbered}
 
 ```{r, echo=FALSE, cache = FALSE}
 # load data
-my_apc <- read.csv("data/apc_de.csv", header = TRUE, sep =",", stringsAsFactors = FALSE)
+my_apc <- jsonlite::stream_in(file("data/cr-apc-all.json"), verbose = FALSE)
 
 # data cleaning
 library(dplyr)
-# remove Bielefelds Zero value
-my_apc <- filter(my_apc, euro > 0)
+## remove Bielefelds Zero value
+my_apc <- dplyr::filter(my_apc, euro > 0)
 # remove intech book chapters
-my_apc <-  filter(my_apc, !is.na(journal_full_title))
-# clean publisher titles, because metadata could not be fetched
-my_apc$publisher[grep("BioMed Central", my_apc$publisher, ignore.case = T)] <- "Springer Science + Business Media"
-my_apc$publisher[grep("Impact Journals, LLC", my_apc$publisher, ignore.case = T)] <- "Impact Journals LLC"
-my_apc$publisher[grep("e-Century Publishing Corporation", my_apc$publisher, ignore.case = T)] <- "e-Century Publ. Corp."
-my_apc$publisher[grep("Academic Journals", my_apc$publisher, ignore.case = T)] <- "Academic Journals"
+my_apc <-  dplyr::filter(my_apc, !is.na(journal_full_title))
+
 # fix plos name change in journal titles
 my_apc$journal_full_title <- gsub("PLoS", "PLOS", my_apc$journal_full_title)
-my_apc$journal_full_title <- gsub("PloS","PLOS", my_apc$journal_full_title)
-my_apc$journal_full_title <- gsub("PlOS","PLOS", my_apc$journal_full_title)
-my_apc$journal_full_title <- gsub("Sustainibility","Sustainability", my_apc$journal_full_title)
-my_apc$journal_full_title <- gsub("Surgeal","Surgical", my_apc$journal_full_title)
-my_apc$journal_full_title <- gsub("Oncotarget","OncoTarget", my_apc$journal_full_title)
-my_apc$journal_full_title <- gsub("BMC cancer","BMC Cancer", my_apc$journal_full_title)
+my_apc$journal_full_title <- gsub("PLOS ONE", "PLOS ONE", my_apc$journal_full_title)
+
+# remove Austrian FWF data
+my_apc <- dplyr::filter(my_apc, !institution == "FWF - Austrian Science Fund")
+# remove data from 2016
+my_apc <- dplyr::filter(my_apc, !period == "2016")
+
 
 ```
 
@@ -111,19 +123,47 @@ apc_time <- my_apc %>%
   summarize(articles = n())
 ```
 
-On February 19th 2016,[^16a] the Open APC initiative covered `r nrow(my_apc)` articles, whose publication fees were centrally paid by `r length(unique(my_apc$institution))` German universities and research institutions. The number of supported open access journal articles, which were reported to this initiative, grew over the years (see Figure 1). While one institution disclosed `r filter(my_apc, period == min(my_apc$period)) %>% nrow()` payments made in `r as.character(min(my_apc$period))`, the majority shared their expenditures from 2013 onwards. With `r max(apc_time$articles)` articles, the year `r apc_time[apc_time$articles == max(apc_time$articles),"period"]` was best represented in our data-set. Because of a time lag between payments made and reporting them to the Open APC initiative, only `r my_apc %>% filter(period == 2015) %>% group_by(institution) %>% summarise(n()) %>% nrow()` institution were able to partly contribute their cost data for 2015 at the time of this analysis.
+On May 13, 2016,[^16a] the Open APC initiative covered `r nrow(my_apc)` articles whose publication fees were centrally paid by `r length(unique(my_apc$institution))` German universities and research institutions until 2015. The number of supported open access journal articles grew over the years (see Figure 1). While one institution disclosed `r filter(my_apc, period == min(my_apc$period)) %>% nrow()` payments made in `r as.character(min(my_apc$period))`, the majority shared their expenditures from 2013 onwards. With `r max(apc_time$articles)` articles, the year `r apc_time[apc_time$articles == max(apc_time$articles),"period"]` was best represented in our data-set. However, `r my_apc %>% filter(period == 2015) %>% group_by(institution) %>% summarise(n()) %>% nrow()` institutions contributed their cost data for 2015 at the time of this analysis, suggesting that there exits a time lag between payments made and reporting these spending to the Open APC initiative.
+
+```{r histm, fig.width=6, fig.height=2.5,fig.cap="Histogram APC"}
+require(ggplot2)
+## http://www.noamross.net/blog/2013/11/20/formatting-plots-for-pubs.html
+science_theme = theme(panel.grid.major = element_line(size = 0.5, color = "grey"), 
+    axis.line.x = element_line(size = 0.7, color = "black"),
+    axis.line.y = element_line(size = 0.7, color = "black"),
+    text = element_text(size = 14))
+
+ggplot(my_apc, aes(euro)) + 
+  geom_histogram(binwidth = 250, colour ="black", boundary = 0) + 
+  scale_x_continuous(limits = c(0,8000)) +
+  xlab("Publication fee in €") +
+  ylab("Articles") +
+  theme_bw() + science_theme
+
+```
 
 ```{r articles_year, fig.width=6, fig.height=2.5,fig.cap="Growth of Open APC Initiative"}
 apc_time <- my_apc %>%
   group_by(period) %>%
   summarize(articles = n())
+
+## http://www.noamross.net/blog/2013/11/20/formatting-plots-for-pubs.html
+science_theme = theme(panel.grid.major = element_line(size = 0.5, color = "grey"), 
+    axis.line.x = element_line(size = 0.7, color = "black"),
+    axis.line.y = element_line(size = 0.7, color = "black"),
+    text = element_text(size = 14))
+  
 ggplot(apc_time, aes(factor(period), cumsum(articles), group = 1)) +
   geom_line(stat = "identity", colour = "blue") +
   geom_point() +
   xlab("Year") +
   ylab("OA articles reported\n(cumulative sum)") +
-  scale_y_continuous(limits = c(0,8000))
+  scale_y_continuous(limits = c(0,8000)) +
+  theme_bw() + science_theme
+ggsave("figure_1.pdf", height=4, width=6)
+
 ```
+
 
 ```{r}
 iqr_df <-  my_apc %>%
@@ -136,10 +176,13 @@ Among all articles, fees amounted to `r sum(my_apc$euro)` € including VAT, the
 
 ```{r payments_year, fig.width=6, fig.height=3,fig.cap="Payments per year"}
 ggplot(my_apc, aes(factor(period), euro)) +
-  geom_boxplot() +
+  geom_boxplot(outlier.size = 0.5) +
   xlab("Year") +
-  ylab("Publishing fee in EURO(log scale)") +
-  scale_y_continuous(limits = c(0,8000))
+  ylab("Publication fee paid in EURO") +
+  scale_y_continuous(limits = c(0,8000)) + 
+  theme_bw() + science_theme
+ggsave("figure_2.pdf", height=4, width=6)
+
 ```
 
 The number of APC payments per institutions varied considerably (see Table 3). With `r filter(my_apc, institution == "MPG") %>% nrow()` reported articles, the Max Planck Society contributed `r (filter(my_apc, institution == "MPG") %>% nrow() / nrow(my_apc)) * 100` % of the overall submissions. In contrast, the two universities of technology, TU Clausthal and TU Ilmenau, who recently begun to set up support structures for fee-based open access journal articles, shared payments made for four articles each.
@@ -158,26 +201,29 @@ pander::pandoc.table(tt, split.cells = 7, caption = 'Institutions self-reporting
 
 ## CrossRef indexing{.unnumbered}
 
-Along with the price information, participating institutions were required to identify funded articles by their DOI. They were reported for `r my_apc %>% filter(!is.na(doi)) %>% nrow()` out of `r nrow(my_apc)` articles. Of those, `r my_apc %>% filter(indexed_in_crossref == TRUE) %>% nrow()` were indexed in CrossRef, representing `r my_apc %>% filter(indexed_in_crossref == TRUE) %>% nrow() / my_apc %>% nrow() * 100`  % of all funded publications. The reasons why articles identified by a DOI were not registered with CrossRef differed. Some journals were not indexed by CrossRef at the time of our study but by the DOI agencies DataCite (Journal of new frontiers in spatial concepts published by KIT Scientific Publishing) and Medra (DIE ERDE: Journal of the Geographical Society of Berlin). In other cases, either the DOI did not refer to the full text despite the fact that the journal was indexed on a regular basis (compare <http://doi.org/10.1186/1471-2105-13-S19-S7> with <http://bmcbioinformatics.biomedcentral.com/articles/10.1186/1471-2105-13-S19-S7>) or the resource type could not be retrieved, although the DOI resolves (<http://doi.org/10.1186/s12885-015-1795-7>).
+Along with the price information, participating institutions were required to identify funded articles by their DOI. They were reported for `r my_apc %>% filter(!is.na(doi)) %>% nrow()` out of `r nrow(my_apc)` articles. Of those, `my_apc %>% filter(indexed_in_crossref == TRUE) %>% nrow()` were indexed in CrossRef, representing `my_apc %>% filter(indexed_in_crossref == TRUE) %>% nrow() / my_apc %>% nrow() * 100`  % of all funded publications. The reasons why articles identified by a DOI were not registered with CrossRef differed. Some journals were not indexed by CrossRef at the time of our study but by the DOI agencies DataCite (Journal of new frontiers in spatial concepts published by KIT Scientific Publishing) and Medra (DIE ERDE: Journal of the Geographical Society of Berlin). In other cases, either the DOI did not refer to the full text despite the fact that the journal was indexed on a regular basis (compare <http://doi.org/10.1186/1471-2105-13-S19-S7> with <http://bmcbioinformatics.biomedcentral.com/articles/10.1186/1471-2105-13-S19-S7>) or the resource type could not be retrieved, although the DOI resolves (<http://doi.org/10.1186/s12885-015-1795-7>).
 
 ## Cost data by publisher and journal{.unnumbered}
 
 
 ```{r}
 apc_publisher <- my_apc
-apc_publisher$publisher <- factor (apc_publisher$publisher, levels = c(rownames(data.frame(rev(sort(table(apc_publisher$publisher)))))))
-
-levels(apc_publisher$publisher)[11:length(levels(apc_publisher$publisher))] <- "other"
+publisher_ <- names(rev(sort(table(apc_publisher$publisher)))[1:10])
+apc_publisher$publisher <- ifelse(apc_publisher$publisher %in% publisher_, apc_publisher$publisher, "Other")
+# SORT FACTOR
+apc_publisher$publisher <- factor(apc_publisher$publisher, levels=c(publisher_, "Other")) 
 ```
 
-We used the DOI to automatically fetch publisher and journal names for each article from the CrossRef REST API. Table 4 shows the top ten publishers in terms of payments made that represent `r apc_publisher %>% filter(!publisher == "other") %>% nrow() / my_apc %>% nrow() * 100` % of the spending for publication fees. In total, payments were made to  `r my_apc %>% group_by(publisher) %>% summarize(n()) %>% nrow()` publishing houses. In comparison with data from the UK, full open access publishers have a greater share on total spending. @Pinfield_2015, for instance, reported remarkably lower numbers for the open access publishers MPDI AG, Copernicus GmbH, and Hindawi Publishing.
+We used the DOI to automatically fetch publisher and journal names for each article from the CrossRef REST API. Table 4 shows the top ten publishers in terms of payments made that represent `r apc_publisher %>% filter(!publisher == "Other") %>% nrow() / my_apc %>% nrow() * 100` % of the spending for publication fees. In total, payments were made to  `r my_apc %>% group_by(publisher) %>% summarize(n()) %>% nrow()` publishing houses. In comparison with data from the UK, full open access publishers have a greater share on total spending. @Pinfield_2015, for instance, reported remarkably lower numbers for the open access publishers MPDI AG, Copernicus GmbH, and Hindawi Publishing.
 
 ```{r results='asis'}
 tt <- apc_publisher %>%
   group_by(publisher) %>%
-  summarise(Articles = n(), Total = sum(euro), Mean = mean(euro), Median = median(euro), Min = min(euro), Max = max(euro))  
+  summarise(Articles = n(), Total = sum(euro), Mean = mean(euro), SD = sd(euro), Median = median(euro), Min = min(euro), Max = max(euro)) %>%
+  mutate(range_apc = paste(Min, "--", Max)) %>%
+  select(-Min, -Max)
 
-colnames(tt) <- c("Publisher", "Articles funded", "Total", "Mean", "Median", "Minimum", "Maximum")
+colnames(tt) <- c("Journal", "Articles funded", "Total", "Mean", "SD", "Median", "Range")
 tt <- format(tt,big.mark=',')
 pander::pandoc.table(tt, split.cells = 7, caption = 'Publication fees paid per publisher (in €)', justify = 'lrrrrrr')
 ```
@@ -186,21 +232,26 @@ Most of the funding of publication fees in Germany went to the publisher Springe
 
 
 ```{r results='asis'}
-apc_journal_full_title <- my_apc
-apc_journal_full_title$journal_full_title <- factor (apc_journal_full_title$journal_full_title, levels = c(rownames(data.frame(rev(sort(table(apc_journal_full_title$journal_full_title)))))))
+apc_journal <- my_apc
 
-levels(apc_journal_full_title$journal_full_title)[11:length(levels(apc_journal_full_title$journal_full_title))] <- "other"
+journal_ <- names(rev(sort(table(apc_journal$journal_full_title)))[1:10])
+apc_journal$journal_full_title <- ifelse(apc_journal$journal_full_title %in% journal_, 
+                                         apc_journal$journal_full_title, "Other")
 
-tt <- apc_journal_full_title %>%
+# SORT FACTOR
+apc_journal$journal_full_title <- factor(apc_journal$journal_full_title, levels=c(journal_, "Other")) 
+tt <- apc_journal %>%
   group_by(journal_full_title) %>%
-  summarise(Articles = n(), Total = sum(euro), Mean = mean(euro), Median = median(euro), Min = min(euro), Max = max(euro))
+  summarise(Articles = n(), Total = sum(euro), Mean = mean(euro), SD = sd(euro), Median = median(euro), Min = min(euro), Max = max(euro)) %>%
+  mutate(range_apc = paste(Min, "--", Max)) %>%
+  select(-Min, -Max)
 
-colnames(tt) <- c("Journal", "Articles funded", "Total", "Mean", "Median", "Minimum", "Maximum")
+colnames(tt) <- c("Journal", "Articles funded", "Total", "Mean", "SD", "Median", "Range")
 tt <- format(tt,big.mark=',')
 pander::pandoc.table(tt, split.cells = 7, caption = 'Publication fees paid per journal (in €)', justify = 'lrrrrrr')
 ```
 
-Prices also varied within single journals. Based on the number of articles paid for, Table 5 illustrates the top ten out of `r my_apc %>% group_by(journal_full_title) %>% summarize(n()) %>% nrow()` journals. Payments to these ten journals represent `r apc_journal_full_title %>% filter(!journal_full_title == "other") %>% nrow() / my_apc %>% nrow() * 100` % of all payments. In the case of Atmospheric Chemistry and Physics Discussions, the price range can be explained by the fact that this journal charges per page and also takes the submission's file format into consideration.
+Prices also varied within single journals. Based on the number of articles paid for, Table 5 illustrates the top ten out of `r my_apc %>% group_by(journal_full_title) %>% summarize(n()) %>% nrow()` journals. Payments to these ten journals represent `r apc_journal %>% filter(!journal_full_title == "Other") %>% nrow() / my_apc %>% nrow() * 100` % of all payments. In the case of Atmospheric Chemistry and Physics Discussions, the price range can be explained by the fact that this journal charges per page and also takes the submission's file format into consideration.
 
 The data-set finally confirms the leading role of "mega-journals" in open access publishing, including the multidisciplinary PLOS ONE and the journals New Journal of Physics, Atmospheric Chemistry and Physics Discussions and Frontiers in Psychology, all of which publish contributions from all branches of their respective discipline. In general, an estimated 14 out of more than 10,000 journals registered in DOAJ in 2015 accounted for up to 15–20 % of all articles published in full open access journals [@Bj_rk_2015].
 

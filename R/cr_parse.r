@@ -1,5 +1,5 @@
 cr_parse <- function(doi) {
-  
+
   # fetch XML through rcrossref
   tryCatch({
     doc <- rcrossref::cr_cn(doi, "crossref-tdm")
