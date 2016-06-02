@@ -183,18 +183,18 @@ tt
 ```
 
 ```r
-sum(tt$`Fees paid in GBP`)
+sum(tt$`Fees paid in Euro`)
 ```
 
 ```
-## [1] 0
+## [1] 5677442
 ```
 
 ```r
 write.csv(tt, "aggregated_wellcome_13_14.csv")
 ```
 
-### wellcome 2014 - 2014
+### wellcome 2014 - 2015
 
 
 ```r
@@ -224,11 +224,11 @@ tt
 ```
 
 ```r
-sum(tt$`Fees paid in GBP`)
+sum(tt$`Fees paid in Euro`)
 ```
 
 ```
-## [1] 0
+## [1] 7374697
 ```
 
 ```r

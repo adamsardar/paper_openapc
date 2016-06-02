@@ -106,12 +106,12 @@ colnames(tt) <- c("Type", "Freq", "Fees paid in Euro", "Mean Fee paid in Euro")
 
 tt
 
-sum(tt$`Fees paid in GBP`)
+sum(tt$`Fees paid in Euro`)
 
 write.csv(tt, "aggregated_wellcome_13_14.csv")
 ```
 
-### wellcome 2014 - 2014
+### wellcome 2014 - 2015
 
 ```{r}
 wellcome_14_15 <- read.csv("wellcome_14_15.csv", header = T, sep =",")
@@ -131,7 +131,7 @@ colnames(tt) <- c("Type", "Freq", "Fees paid in Euro", "Mean Fee paid in Euro")
 
 tt
 
-sum(tt$`Fees paid in GBP`)
+sum(tt$`Fees paid in Euro`)
 
 write.csv(tt, "aggregated_wellcome_14_14.csv")
 ```
