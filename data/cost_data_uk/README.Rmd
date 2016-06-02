@@ -135,3 +135,25 @@ sum(tt$`Fees paid in Euro`)
 
 write.csv(tt, "aggregated_wellcome_14_14.csv")
 ```
+
+### open apc
+
+```{r}
+my_apc <- jsonlite::stream_in(file("../cr-apc-all.json"), verbose = FALSE)
+
+# data cleaning
+library(dplyr)
+## remove Bielefelds Zero value
+my_apc <- dplyr::filter(my_apc, euro > 0)
+# remove intech book chapters
+my_apc <-  dplyr::filter(my_apc, !is.na(journal_full_title))
+
+# remove Austrian FWF data
+my_apc <- dplyr::filter(my_apc, !institution == "FWF - Austrian Science Fund")
+# data from 2014 and 2015
+my_apc <- dplyr::filter(my_apc, period == "2015" | period == "2014")
+
+aggregate(my_apc$euro, by = list(my_apc$is_hybrid, my_apc$period), sum)
+aggregate(my_apc$euro, by = list(my_apc$is_hybrid, my_apc$period), mean)
+aggregate(my_apc$euro, by = list(my_apc$is_hybrid, my_apc$period), length)
+```

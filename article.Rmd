@@ -187,7 +187,7 @@ iqr_df <-  my_apc %>%
   summarise(iqr = mean(euro))
 ```
 
-Among all articles, fees amounted to `r sum(my_apc$euro)` € including VAT, the average payment was `r mean(my_apc$euro)` € and the median value `r median(my_apc$euro)` € . Figure 2 shows the large price variation among the articles. The disclosed publication fees ranged from `r min(my_apc$euro)` € to `r max(my_apc$euro)` €. However, the average price paid varied somewhat during the period 2011 and 2014 (`r my_apc %>% filter(period == 2011) %>% summarise(mean(euro)) %>% round()` - `r my_apc %>% filter(period == 2014) %>% summarise(mean(euro)) %>% round()` €). We also observe that `r nrow(my_apc[my_apc$euro < 2000,])` (`r (nrow(my_apc[my_apc$euro < 2000,]) / nrow(my_apc))  *100`%) of the publication fees were paid in accordance with the DFG price cap of 2,000 €. Whereas related open data initiatives in Austria and the United Kingdom reported a large share of spending for hybrid journal articles, the situation in Germany is different: only  `r my_apc %>% filter(is_hybrid == TRUE) %>% nrow()` articles in hybrid journals were reported by `r my_apc %>% group_by(institution) %>% filter(is_hybrid == TRUE) %>% summarise() %>% nrow()` out of `r length(unique(my_apc$institution))` research institutions, accounting for `r (my_apc %>% filter(is_hybrid == TRUE) %>% nrow() / my_apc %>% nrow()) * 100` % of the overall payments.
+Among all articles, fees amounted to `r sum(my_apc$euro)` € including VAT, the average payment was `r mean(my_apc$euro)` € and the median value `r median(my_apc$euro)` € . Figure 2 shows the large price variation among the articles. The disclosed publication fees ranged from `r min(my_apc$euro)` € to `r max(my_apc$euro)` €. However, the average price paid varied somewhat during the period 2011 and 2014 (`r my_apc %>% filter(period == 2011) %>% summarise(mean(euro)) %>% round()` - `r my_apc %>% filter(period == 2014) %>% summarise(mean(euro)) %>% round()` €). We also observe that `r nrow(my_apc[my_apc$euro < 2000,])` (`r (nrow(my_apc[my_apc$euro < 2000,]) / nrow(my_apc))  *100`%) of the publication fees were paid in accordance with the DFG price cap of 2,000 €. 
 
 
 ```{r payments_year, fig.width=6, fig.height=3,fig.cap="Payments per year"}
@@ -215,15 +215,17 @@ tt <- format(tt,big.mark=',')
 pander::pandoc.table(tt, split.cells = 7, caption = 'Institutions self-reporting expenditures for open access publications (in €)', justify = 'lrrrrrr')
 ```
 
-## Comparision with related cost data-sets
+## Comparision of related cost data-sets
+
+Table 2 compares Open APC spending data with that of the Austrian FWF, as well as with Jisc's and Wellcome Trust's expenditures. Prices were converted according to the average Euro exchange rate of the examined periods, and gathered for both fully and hybrid open access journals. The comparison reveals that the Open APC initiative lacked cost information about hybrid journals, whereas the related Austrian and UK open data initiatives could report a large share of spending for these journals between 2014 and 2015. This situation likely reflected the DFG-inspired funding policy of most participating institutions that excluded support for publications in hybrid journals. Over the years 2005 – 2015, `r my_apc %>% group_by(institution) %>% filter(is_hybrid == TRUE) %>% summarise() %>% nrow()` out of `r length(unique(my_apc$institution))` German universities and research institutions  reported `r my_apc %>% filter(is_hybrid == TRUE) %>% nrow()` hybrid journal articles to the Open APC initiative, accounting for `r (my_apc %>% filter(is_hybrid == TRUE) %>% nrow() / my_apc %>% nrow()) * 100` % of the overall payments. In terms of the number of supported articles and the amount being spent on publication fees, by contrast, the Open APC data-set provided the most comprehensive price information for fully open access journals compared to what the Austrian and UK initiatives had reported.
 
 ```{r results='asis'}
 tt <- read.csv("data/aggregates_fees_paid.csv", header = TRUE, sep =",")
-tt[is.na(tt)] <- ""
 colnames(tt) <- c("Cost data-set", "Journal Type", "Articles funded", "Total costs in Euro", "Mean")
-pander::pandoc.table(tt)
+pander::pandoc.table(tt,split.cells = 5 , big.mark = ",", caption = 'Comparision of cost data per period and journal type  (in €)', justify = 'lrrrr')
 ```
 
+Comparison of average prices suggests that publishing in hybrid journal was more expensive than in fully open access journals. Price differentials between these two categories were also reported earlier, concluding that prices for fully open access journals were generally lower [@Solomon_2012; @Pinfield_2015]. In 2014 and 2015, the mean price for fully open access journals calculated from all data-sets was below the DFG price cap of 2,000 €.
 
 ## CrossRef indexing{.unnumbered}
 

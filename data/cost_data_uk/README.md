@@ -234,3 +234,76 @@ sum(tt$`Fees paid in Euro`)
 ```r
 write.csv(tt, "aggregated_wellcome_14_14.csv")
 ```
+
+### open apc
+
+
+```r
+my_apc <- jsonlite::stream_in(file("../cr-apc-all.json"), verbose = FALSE)
+
+# data cleaning
+library(dplyr)
+```
+
+```
+## 
+## Attaching package: 'dplyr'
+```
+
+```
+## The following objects are masked from 'package:stats':
+## 
+##     filter, lag
+```
+
+```
+## The following objects are masked from 'package:base':
+## 
+##     intersect, setdiff, setequal, union
+```
+
+```r
+## remove Bielefelds Zero value
+my_apc <- dplyr::filter(my_apc, euro > 0)
+# remove intech book chapters
+my_apc <-  dplyr::filter(my_apc, !is.na(journal_full_title))
+
+# remove Austrian FWF data
+my_apc <- dplyr::filter(my_apc, !institution == "FWF - Austrian Science Fund")
+# data from 2014 and 2015
+my_apc <- dplyr::filter(my_apc, period == "2015" | period == "2014")
+
+aggregate(my_apc$euro, by = list(my_apc$is_hybrid, my_apc$period), sum)
+```
+
+```
+##   Group.1 Group.2          x
+## 1   FALSE    2014 2353664.81
+## 2    TRUE    2014   26545.88
+## 3   FALSE    2015 2820444.76
+## 4    TRUE    2015   23412.44
+```
+
+```r
+aggregate(my_apc$euro, by = list(my_apc$is_hybrid, my_apc$period), mean)
+```
+
+```
+##   Group.1 Group.2        x
+## 1   FALSE    2014 1284.752
+## 2    TRUE    2014 1769.725
+## 3   FALSE    2015 1416.597
+## 4    TRUE    2015 2926.555
+```
+
+```r
+aggregate(my_apc$euro, by = list(my_apc$is_hybrid, my_apc$period), length)
+```
+
+```
+##   Group.1 Group.2    x
+## 1   FALSE    2014 1832
+## 2    TRUE    2014   15
+## 3   FALSE    2015 1991
+## 4    TRUE    2015    8
+```
