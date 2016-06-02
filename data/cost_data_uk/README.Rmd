@@ -1,0 +1,137 @@
+# Log: Review of publication fees being spent by FWF, Wellcome Trust and JISC
+
+## Data Sources
+
+All data files were downloaded on 2 June 2016.
+
+### FWF
+
+- Katharina Rieck, Doris Haslinger, Sasa Meischke-Ilic, Ünzüle Kirindi-Hentschel, & Falk Reckling. (2016). Austrian Science Fund (FWF) Publication Cost Data 2015. Figshare. http://doi.org/10.6084/m9.figshare.3180166
+
+- Falk Reckling, & Katharina Rieck. (2015). Austrian Science Fund (FWF) Publication Cost Data 2014. Figshare. http://doi.org/10.6084/m9.figshare.1378610
+
+### JISC
+
+- Stuart Lawson. (2015). APC data for 25 UK higher education institutions - 2014. Figshare. http://doi.org/10.6084/m9.figshare.1305596.v5
+
+- Stuart Lawson. (2016). APC data for 27 UK higher education institutions in 2015. Figshare. http://doi.org/10.6084/m9.figshare.1507481.v4
+
+### Wellcome Trust
+
+- Robert Kiley. (2016). Wellcome Tust/COAF spend on open access publishing (article processing charges) - 2014-15. Figshare. http://doi.org/10.6084/m9.figshare.3118936.v1
+
+- Robert Kiley. (2015). Wellcome Trust open access (OA) spend and compliance monitoring: 2013-14. Figshare. http://doi.org/10.6084/m9.figshare.1321361.v5
+
+## Pre-processing
+
+Before loading cost data into the R console, we removed windows encoding from the Jisc data files. We also removed currency symbols from the Wellcome Trust spreadsheets and converted them to csv files with LibreOffice.
+
+Pre-processed files were stored in this folder.
+
+## Converting currencies
+
+To summarize  Wellcome Trust's and Jisc's spending, we converted the prices from GBP to Euro in accordance with the average Euro foreign exchange reference rates provided by the European Central Bank. Our comparison between the open data initiatives focussed on the last two years 2014 and 2015. Because Wellcome Trust's spending was reported for the periods 2013 - 2014 and 2014 - 2015, we referred to the average exchange rates of the full two-year period as we could not determine the actual invoicing dates from the data.
+
+## Cost aggregation
+
+Note, we used the accompanying data report to determine FWF publication fee spending
+
+### JISC 2014
+
+```{r}
+jisc_14 <- read.csv("jisc_2014.csv", header = TRUE, sep =",")
+jisc_14$APC <- as.numeric(as.character(jisc_14$APC.paid....including.VAT.if.charged))
+
+# convert to average euro exchange rate
+jisc_14$APC <- jisc_14$APC * 1.2411
+
+apc_sum <- aggregate(jisc_14$APC, list(jisc_14$Type.of.publication), sum, na.rm = TRUE)
+apc_n <- as.data.frame(table(jisc_14$Type.of.publication))
+
+tt <- data.frame(apc_n, apc_sum[,c("x")])
+
+colnames(tt) <- c("Type", "Freq", "Fees paid in Euro")
+
+tt$`Mean Fee` <- tt$`Fees paid in Euro` / tt$Freq
+
+tt
+sum(tt$`Fees paid in Euro`)
+
+write.csv(tt, "aggregated_jisc_2014.csv")
+```
+
+### JISC 2015
+
+```{r}
+jisc_15 <- read.csv("jisc_2015.csv", header = TRUE, sep =",")
+
+jisc_15$APC <- as.numeric(as.character(jisc_15$APC.paid....including.VAT.if.charged))
+
+# convert to average euro exchange rate
+jisc_15$APC <- jisc_15$APC * 1.3785
+
+apc_sum <- aggregate(jisc_15$APC, list(jisc_15$Type.of.publication), sum, na.rm = TRUE)
+
+apc_n <- as.data.frame(table(jisc_15$Type.of.publication))
+
+tt <- data.frame(apc_n, apc_sum[,c("x")])
+
+colnames(tt) <- c("Type", "Freq", "Fees paid in Euro")
+
+tt$`Mean Fee` <- tt$`Fees paid in Euro` / tt$Freq
+
+tt
+
+sum(tt$`Fees paid in Euro`)
+
+write.csv(tt, "aggregated_jisc_2015.csv")
+```
+
+### wellcome 2013-14
+
+```{r}
+wellcome_13_14 <- read.csv("wellcome_13_14.csv", header = T, sep =",")
+wellcome_13_14$APC <- wellcome_13_14$Cost......inc.VAT.when.charged.
+
+# convert to average euro exchange rate
+wellcome_13_14$APC <- wellcome_13_14$APC * 1.2094
+
+apc_n <- data.frame(table(wellcome_13_14$Journal.Type))
+apc_sum <- aggregate(wellcome_13_14$APC, list(wellcome_13_14$Journal.Type), sum, na.rm = TRUE)
+apc_mean <- aggregate(wellcome_13_14$APC, list(wellcome_13_14$Journal.Type), mean, na.rm = TRUE)
+
+tt <- data.frame(apc_n, apc_sum[,c("x")], apc_mean[,c("x")])
+
+colnames(tt) <- c("Type", "Freq", "Fees paid in Euro", "Mean Fee paid in Euro")
+
+tt
+
+sum(tt$`Fees paid in GBP`)
+
+write.csv(tt, "aggregated_wellcome_13_14.csv")
+```
+
+### wellcome 2014 - 2014
+
+```{r}
+wellcome_14_15 <- read.csv("wellcome_14_15.csv", header = T, sep =",")
+wellcome_14_15$APC <- wellcome_14_15$Cost......inc.VAT.when.charged.
+
+# convert to average euro exchange rate
+wellcome_14_15$APC <- wellcome_14_15$APC * 1.3099
+
+
+apc_n <- data.frame(table(wellcome_14_15$Journal.Type))
+apc_sum <- aggregate(wellcome_14_15$APC, list(wellcome_14_15$Journal.Type), sum, na.rm = TRUE)
+apc_mean <- aggregate(wellcome_14_15$APC, list(wellcome_14_15$Journal.Type), mean, na.rm = TRUE)
+
+tt <- data.frame(apc_n, apc_sum[,c("x")], apc_mean[,c("x")])
+
+colnames(tt) <- c("Type", "Freq", "Fees paid in Euro", "Mean Fee paid in Euro")
+
+tt
+
+sum(tt$`Fees paid in GBP`)
+
+write.csv(tt, "aggregated_wellcome_14_14.csv")
+```
