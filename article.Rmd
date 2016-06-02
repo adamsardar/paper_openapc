@@ -215,6 +215,16 @@ tt <- format(tt,big.mark=',')
 pander::pandoc.table(tt, split.cells = 7, caption = 'Institutions self-reporting expenditures for open access publications (in €)', justify = 'lrrrrrr')
 ```
 
+## Comparision with related cost data-sets
+
+```{r results='asis'}
+tt <- read.csv("data/aggregates_fees_paid.csv", header = TRUE, sep =",")
+tt[is.na(tt)] <- ""
+colnames(tt) <- c("Cost data-set", "Journal Type", "Articles funded", "Total costs in Euro", "Mean")
+pander::pandoc.table(tt)
+```
+
+
 ## CrossRef indexing{.unnumbered}
 
 Along with the price information, participating institutions were required to identify funded articles by their DOI. They were reported for `r my_apc %>% filter(!is.na(doi)) %>% nrow()` out of `r nrow(my_apc)` articles. Of those, `my_apc %>% filter(indexed_in_crossref == TRUE) %>% nrow()` were indexed in CrossRef, representing `my_apc %>% filter(indexed_in_crossref == TRUE) %>% nrow() / my_apc %>% nrow() * 100`  % of all funded publications. The reasons why articles identified by a DOI were not registered with CrossRef differed. Some journals were not indexed by CrossRef at the time of our study but by the DOI agencies DataCite (Journal of new frontiers in spatial concepts published by KIT Scientific Publishing) and Medra (DIE ERDE: Journal of the Geographical Society of Berlin). In other cases, either the DOI did not refer to the full text despite the fact that the journal was indexed on a regular basis (compare <http://doi.org/10.1186/1471-2105-13-S19-S7> with <http://bmcbioinformatics.biomedcentral.com/articles/10.1186/1471-2105-13-S19-S7>) or the resource type could not be retrieved, although the DOI resolves (<http://doi.org/10.1186/s12885-015-1795-7>).
