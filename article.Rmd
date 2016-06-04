@@ -97,7 +97,7 @@ We fetched bibliographic metadata for each article from Crossref on May 19, 2016
 
 As a client, we used the R package rcrossref [@rcrossref], developed and maintained by the rOpenSci initiative[^6], to access Crossref's REST API. We requested the XML-based format `application/vnd.crossref.unixsd+xml` in which full and abbreviated journal titles as well as the ISSN media types, the International Standard Serial Number used to identify journals, were distinguished. It also contained normalized publisher information, thus avoiding confusion about naming of publishing houses other studies were faced with when working with self-reported data [@woodward_2014]. In cases where no bibliographic information could be obtained, we used the Open APC values. Because Crossref was not the only registration agency for DOIs, but also the agencies DataCite and Medra minted DOIs for scholarly work, we furthermore obtained the DOI agency for each article with the help of the rcrossref client.
 
-Data collection also involved obtaining cost data from related open data initiatives. To compare self-reported spending on open access journal articles by Germany universities and research organisations with that of other initiatives, we reviewed the openly available data-sets from the the Austrian Science Fund FWF [@fwf_apc_14; @fwf_apc_15], Jisc [@jisc_14; @jisc_15] and the Wellcome Trust [@wellcome_apc_13_14; @wellcome_apc_14_15]. For analysis, we obtained the overall publication fee spending to support fully and hybrid open access journal articles. In the case of FWF, we gathered the cost information from the accompanying spending reports. We used the spreadsheet data to calculate Wellcome Trust's and Jisc's spending, and converted the prices from GBP to Euro in accordance with the average Euro foreign exchange reference rates provided by the European Central Bank. Our comparison between the open data initiatives focussed on the last two years 2014 and 2015. Because Wellcome Trust's spending was reported for the periods 2013 - 2014 and 2014 - 2015, we referred to the average exchange rates of the full two-year period as we could not determine the actual invoicing dates from the data. We excluded articles from the analysis for which either cost information or journal type was missing. In the case of Jisc's 2014 data [@jisc_14], we could not analyze 4.861.772 € spent on 2,812 publications because no publication type was given in the data-set.
+Data collection also involved obtaining cost data from related open data initiatives. To compare self-reported spending on open access journal articles by Germany universities and research organisations with that of other initiatives, we reviewed the openly available data-sets from the the Austrian Science Fund FWF [@fwf_apc_14; @fwf_apc_15], Jisc [@jisc_14; @jisc_15] and the Wellcome Trust [@wellcome_apc_13_14; @wellcome_apc_14_15]. For analysis, we obtained the overall publication fee spending to support fully and hybrid open access journal articles. In the case of FWF, we gathered the cost information from the accompanying spending reports. We used the spreadsheet data to calculate Wellcome Trust's and Jisc's spending, and converted the prices from GBP to € in accordance with the average € foreign exchange reference rates provided by the European Central Bank. Our comparison between the open data initiatives focussed on the last two years 2014 and 2015. Because Wellcome Trust's spending was reported for the periods 2013 - 2014 and 2014 - 2015, we referred to the average exchange rates of the full two-year period as we could not determine the actual invoicing dates from the data. We excluded articles from the analysis for which either cost information or journal type was missing. In the case of Jisc's 2014 data [@jisc_14], we could not analyze 4.861.772 € spent on 2,812 publications because no publication type was given in the data-set.
 
 The data collection methods of the Open APC initiative and those of the other initiatives differ in some aspects. For instance, whereas the DOI was a mandatory element in the Open APC data template that the participating institutions were required to report, in the Wellcome Trust data a publication identifier was added as part of the automated compliance checks. Our first screening of the data-sets revealed that some articles lacked a DOI. For this reason, and as our main focus is institutional funding for publication fees in Germany, we decided to only compare German APC spending with that reported by other initiatives. We did not compare the overall size, the distribution over publishers and journal titles, or the indexing coverage in Crossref. 
 
@@ -179,7 +179,7 @@ pdf("figure_2.pdf", height=4, width=6)
 ggplot(my_apc, aes(euro)) + 
   geom_histogram(binwidth = 250, colour ="black", boundary = 0) + 
   scale_x_continuous(limits = c(0,8000)) +
-  xlab("Publication fee in Euro") +
+  xlab("Publication fee in €") +
   ylab("Articles") +
   theme_bw() + science_theme
 dev.off()
@@ -204,7 +204,7 @@ pdf("figure_3.pdf", height=4, width=6)
 ggplot(my_apc, aes(factor(period), euro)) +
   geom_boxplot(outlier.size = 0.5) +
   xlab("Year") +
-  ylab("Publication fee paid in EURO") +
+  ylab("Publication fee paid in €") +
   scale_y_continuous(limits = c(0,8000)) + 
   theme_bw() + science_theme
 dev.off()
@@ -230,11 +230,11 @@ table_1 <- format(tt,big.mark=',')
 
 ## Comparision of related cost data-sets
 
-Table 2 compares Open APC spending data with that of the Austrian FWF, as well as with Jisc's and Wellcome Trust's expenditures. Prices were converted according to the average Euro exchange rate of the examined periods, and gathered for both fully and hybrid open access journals. The comparison reveals that the Open APC initiative lacked cost information about hybrid journals, whereas the related Austrian and UK open data initiatives could report a large share of spending for these journals between 2014 and 2015. This situation likely reflected the DFG-inspired funding policy of most participating institutions that excluded support for publications in hybrid journals. Over the years 2005 – 2015, `r my_apc %>% group_by(institution) %>% filter(is_hybrid == TRUE) %>% summarise() %>% nrow()` out of `r length(unique(my_apc$institution))` German universities and research institutions reported `r my_apc %>% filter(is_hybrid == TRUE) %>% nrow()` hybrid journal articles to the Open APC initiative, accounting for `r (my_apc %>% filter(is_hybrid == TRUE) %>% nrow() / my_apc %>% nrow()) * 100` % of the overall payments. In terms of the number of supported articles and the amount being spent on publication fees, by contrast, the Open APC data-set provided the most comprehensive price information for fully open access journals compared to what the Austrian and UK initiatives had reported.
+Table 2 compares Open APC spending data with that of the Austrian FWF, as well as with Jisc's and Wellcome Trust's expenditures. Prices were converted according to the average € exchange rate of the examined periods, and gathered for both fully and hybrid open access journals. The comparison reveals that the Open APC initiative lacked cost information about hybrid journals, whereas the related Austrian and UK open data initiatives could report a large share of spending for these journals between 2014 and 2015. This situation likely reflected the DFG-inspired funding policy of most participating institutions that excluded support for publications in hybrid journals. Over the years 2005 – 2015, `r my_apc %>% group_by(institution) %>% filter(is_hybrid == TRUE) %>% summarise() %>% nrow()` out of `r length(unique(my_apc$institution))` German universities and research institutions reported `r my_apc %>% filter(is_hybrid == TRUE) %>% nrow()` hybrid journal articles to the Open APC initiative, accounting for `r (my_apc %>% filter(is_hybrid == TRUE) %>% nrow() / my_apc %>% nrow()) * 100` % of the overall payments. In terms of the number of supported articles and the amount being spent on publication fees, by contrast, the Open APC data-set provided the most comprehensive price information for fully open access journals compared to what the Austrian and UK initiatives had reported.
 
 ```{r results='hide'}
 tt <- read.csv("data/aggregates_fees_paid.csv", header = TRUE, sep =",")
-colnames(tt) <- c("Cost data-set", "Journal Type", "Articles funded", "Total costs in Euro", "Mean")
+colnames(tt) <- c("Cost data-set", "Journal Type", "Articles funded", "Total costs in €", "Mean")
 table_2 <- tt
 #table_2 <- pander::pandoc.table(tt,split.cells = 5 , big.mark = ",", caption = 'Comparision of cost data per period and journal type (in €)', justify = 'lrrrr')
 ```
@@ -368,7 +368,7 @@ We thank Andrea Hacker and Ada-Charlotte Regelmann for valuable comments on the 
 
 [^3]: Guidelines for the funding program can be found here: <http://www.dfg.de/formulare/12_20/>
 
-[^3a]: We are sure that some universities with DFG-funded publication funds pay for APCs higher than 2,000 EUR. They have to make sure they don't use the funder's money for these articles, and this maybe explains why some institutions are reluctant to report on these APCs. Scatter plots of all APC payments show that there are only very few APCs over 2,000 EUR.
+[^3a]: We are sure that some universities with DFG-funded publication funds pay for APCs higher than 2,000 €. They have to make sure they don't use the funder's money for these articles, and this maybe explains why some institutions are reluctant to report on these APCs. Scatter plots of all APC payments show that there are only very few APCs over 2,000 €.
 
 
 
