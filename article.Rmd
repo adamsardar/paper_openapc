@@ -1,6 +1,5 @@
 ---
-title: 'Disclosing funding sources for open access publication fees: the Open APC
-  initiative'
+title: 'A Study of Institutional Spending on Open Access Publication Fees in Germany'
 author:
 - Najko Jahn, Bielefeld University Library, Bielefeld University (TIB) - German National
   Library of Science and Technology, Hannover, Germany
@@ -18,21 +17,8 @@ output:
     theme: readable
 bibliography: literatur.bib
 csl: frontiers.csl
-abstract: Publication fees in open access publishing hold a prominent place on the
-  agenda of researchers, policy-makers, and academic publishers. This paper contributes
-  to the evolving empirical basis on open access funding. It describes the Open APC
-  initiative, in which German universities and research organizations share their
-  expenditures for publication fees. As method, the initiative uses existing open
-  data tools to aggregate and disseminate institutional spending on open access publication
-  fees. In total, 29 German research organizations self-reported funding of 6,279
-  open access journal articles, which amounted to 8,039,339 €. The average payment
-  for each article was 1,280 €, and the median payment 1,209 €. Our data-set comprises
-  only 53 articles in hybrid journals. With an indexing coverage of 99 %, the findings
-  reveal that the DOI agency Crossref provides both comprehensive bibliographic coverage
-  of the funded open access journal literature and disambiguated names of journal
-  titles and publishing houses. We show that authority control of these bibliographic
-  information is particularly relevant for the comparative study of the economical
-  effects of open access publishing.
+
+
 ---
 
 ```{r, echo =FALSE}
@@ -59,8 +45,6 @@ knitr::knit_hooks$set(inline = function(x) {
 # Introduction{.unnumbered}
 
 ## General Background{.unnumbered}
-
-<!-- Publication fees, often paid by funders or universities, are a widely discussed business model for open access journals. Yet, how and to what extent these activities are effective in terms of the number of supported research articles and associated costs remains under debate. This study contributes to a growing empirical base about institutional spending on open access publication fees. More specifically, it uses self-reported cost data from German universities and research organisations to examine how much they spent, and how the so funded open access journal articles were distributed over publishers and journal titles using bibliographic information from Crossref. Such an approach extends methods and improves data collection activities for researchers and practitioners alike, as well as contribute to a better understanding of factors affecting the analysis of publication fees in open access publishing. -->
 
 The rise of open access journals matches the increasing relevance of publication fees in academic publishing [@Davis_2011; @Laakso_2012; @Pinfield_Review_2015]. To cover these fees, also referred to as article-processing charges (APC), authors tend to make use of funding that grant agencies or academic institutions provide [@Suber_2012]. Yet, how and to what extent these research support activities are effective in terms of the number of supported articles and associated costs remains under debate. 
 
