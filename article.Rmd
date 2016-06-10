@@ -121,9 +121,9 @@ apc_time <- my_apc %>%
   summarize(articles = n())
 ```
 
-After excluding payments being made for non-journal articles as well as articles invoiced in 2016, we retrieved `r nrow(my_apc)` open access journal articles `r length(unique(my_apc$institution))` German universities and research institutions financially supported between 2005 and 2015. As illustrated in Figure 1, payments made for open access journal articles increased over the years. While one institution supported `r filter(my_apc, period == min(my_apc$period)) %>% nrow()` articles in `r as.character(min(my_apc$period))`, most institutions included in our study shared their expenditure from 2013 onwards. With `r max(apc_time$articles)` articles, the year `r apc_time[apc_time$articles == max(apc_time$articles),"period"]` was best represented. However, at the time of analysis, not all, but `r my_apc %>% filter(period == 2015) %>% group_by(institution) %>% summarise(n()) %>% nrow()` institutions contributed cost information, suggesting a time lag between payments made and reporting these spending to the Open APC initiative.
+After excluding payments for non-journal articles as well as articles invoiced in 2016, we retrieved information on `r nrow(my_apc)` open access journal articles that `r length(unique(my_apc$institution))` German universities and research institutions supported financially between 2005 and 2015. As illustrated in Figure 1, payments made for open access journal articles increased over the years. While one institution supported `r filter(my_apc, period == min(my_apc$period)) %>% nrow()` articles in `r as.character(min(my_apc$period))`, most institutions included in our study shared their expenditure from 2013 onwards. The best represented year was `r apc_time[apc_time$articles == max(apc_time$articles),"period"]`, with `r max(apc_time$articles)` articles. However, at the time of analysis only `r my_apc %>% filter(period == 2015) %>% group_by(institution) %>% summarise(n()) %>% nrow()` institutions had contributed cost information for 2015, suggesting a lag between the time that payments are made and expenditures are reported to the Open APC initiative.
 
-**Figure 1: Growth of Open APC Initiative**
+**Figure 1: Growth of the Open APC Initiative**
 
 ```{r articles_year, results = 'hide'}
 apc_time <- my_apc %>%
@@ -171,13 +171,13 @@ iqr_df <- my_apc %>%
   summarise(iqr = mean(euro))
 ```
 
-Among all articles, fees amounted to `r sum(my_apc$euro)` € including value added tax, the average payment was `r mean(my_apc$euro)` € (Median =  `r median(my_apc$euro)` €) . Figure 2 presents the distribution of institutional spending on publications. We observed that `r nrow(my_apc[my_apc$euro < 2000,])` (`r (nrow(my_apc[my_apc$euro < 2000,]) / nrow(my_apc)) *100` %) of the publication fees were paid in accordance with the DFG price cap of 2,000 €. Most payment on publication ranged between 1,000 - 1,250 €. 
+The fees for all of the articles amounted to € `r sum(my_apc$euro)`, including value-added tax; the average payment was € `r mean(my_apc$euro)` (median =  € `r median(my_apc$euro)`) . Figure 2 presents the distribution of institutional spending on publications. We observed that `r nrow(my_apc[my_apc$euro < 2000,])` (`r (nrow(my_apc[my_apc$euro < 2000,]) / nrow(my_apc)) *100` %) of the publication fees were paid in accordance with the DFG price cap of € 2,000. Most payments for publications ranged from € 1,000 to € 1,250. 
 
 **Figure 2: Distribution of institutional spending on publication fees by German research organisations**
 
 **Figure 3: Institutional spending on publication fees by German research organisations per year**
 
-Figure 3 presents institutional spending per article and year. Large price variations could be observed. Publication fees that were paid by the German universities and research organisations ranged between `r min(my_apc$euro)` € and `r max(my_apc$euro)` €  (SD = `r sd(my_apc$euro)`). However, the average price paid varied somewhat during the period 2011 and 2015 (`r my_apc %>% filter(period == 2011) %>% summarise(mean(euro)) %>% round()` - `r my_apc %>% filter(period == 2015) %>% summarise(mean(euro)) %>% round()` €).
+Figure 3 presents institutional spending per article and year. Large price variations can be observed. Publication fees that were paid by German universities and research organisations ranged from € `r min(my_apc$euro)` to € `r max(my_apc$euro)` (SD = `r sd(my_apc$euro)`). However, the average price paid varied somewhat during the period from 2011 to 2015 (€ `r my_apc %>% filter(period == 2011) %>% summarise(mean(euro)) %>% round()` - € `r my_apc %>% filter(period == 2015) %>% summarise(mean(euro)) %>% round()`).
 
 ```{r payments_year, results = 'hide'}
 pdf("figure_3.pdf", height=4, width=6)
@@ -190,7 +190,7 @@ ggplot(my_apc, aes(factor(period), euro)) +
 dev.off()
 ```
 
-The number of APC payments per institutions varied considerably (see Table 1). With `r filter(my_apc, institution == "MPG") %>% nrow()` reported articles, the Max Planck Society contributed `r (filter(my_apc, institution == "MPG") %>% nrow() / nrow(my_apc)) * 100` % of the overall article volume. By contrast,  we observed a lower number of supported open access journal articles for several universities that only recently begun to set up centrally managed open access funds to cover publication fees.
+The number of APC payments per institution varied considerably (see Table 1). With `r filter(my_apc, institution == "MPG") %>% nrow()` reported articles, the Max Planck Society contributed `r (filter(my_apc, institution == "MPG") %>% nrow() / nrow(my_apc)) * 100` % of the overall article volume. By contrast,  we observed a lower number of supported open access journal articles for several universities that had only recently begun to set up centrally managed open access funds to cover publication fees.
 
 **Table 1: Institutional spending on open access publications (in €)**
 
@@ -208,9 +208,9 @@ table_1 <- format(tt,big.mark=',')
 
 ```
 
-## Comparision of related cost data-sets
+## Comparison of related cost data-sets
 
-Table 2 compares Open APC spending data with that of the Austrian FWF, as well as with Jisc's and Wellcome Trust's expenditure. Prices were converted according to the average Euro exchange rate of the examined periods, and gathered for both fully and hybrid open access journals. The comparison revealed that the Open APC initiative lacked cost information about hybrid journals, whereas the related Austrian and UK open data initiatives reported a large share of spending on these journals between 2014 and 2015. Over the years 2005 – 2015, `r my_apc %>% group_by(institution) %>% filter(is_hybrid == TRUE) %>% summarise() %>% nrow()` out of `r length(unique(my_apc$institution))` German universities and research institutions reported `r my_apc %>% filter(is_hybrid == TRUE) %>% nrow()` hybrid journal articles to the Open APC initiative, representing `r (my_apc %>% filter(is_hybrid == TRUE) %>% nrow() / my_apc %>% nrow()) * 100` % of all articles included in the data-set. In terms of the number of supported articles and the amount being spent on publication fees, by contrast, the Open APC data-set provided the most comprehensive price information for fully open access journals compared to what the Austrian and UK initiatives had reported.
+Table 2 compares the Open APC spending data with that of the Austrian FWF, as well as with Jisc's and Wellcome Trust's expenditures. Prices were converted according to the average Euro exchange rate during the examined periods and were gathered for both fully open access journals and hybrid journals. The comparison revealed that the Open APC initiative lacked cost information about hybrid journals, whereas the related Austrian and UK open data initiatives reported a large share of spending on these journals between 2014 and 2015. Over the years 2005-2015, `r my_apc %>% group_by(institution) %>% filter(is_hybrid == TRUE) %>% summarise() %>% nrow()` out of `r length(unique(my_apc$institution))` German universities and research institutions reported `r my_apc %>% filter(is_hybrid == TRUE) %>% nrow()` hybrid journal articles to the Open APC initiative, representing `r (my_apc %>% filter(is_hybrid == TRUE) %>% nrow() / my_apc %>% nrow()) * 100` % of all articles included in the data-set. In contrast, in terms of the number of supported articles and the amount spent on publication fees, the Open APC data-set provided more comprehensive price information for fully open access journals than did the Austrian and UK initiatives.
 
 ```{r results='hide'}
 tt <- read.csv("data/aggregates_fees_paid.csv", header = TRUE, sep =",")
@@ -219,7 +219,7 @@ table_2 <- tt
 #table_2 <- pander::pandoc.table(tt,split.cells = 5 , big.mark = ",", caption = 'Comparision of cost data per period and journal type (in €)', justify = 'lrrrr')
 ```
 
-Comparison of average prices revealed that publishing in hybrid journals was, on average, more expensive than in fully open access journals. Price differences between these two categories were also reported earlier, indicating that prices for fully open access journals were on average lower [@Solomon_2012; @Pinfield_2015]. In 2014 and 2015, the mean price for fully open access journals calculated from all data-sets was below the DFG price cap of 2,000 €.
+A comparison of average prices revealed that publishing in hybrid journals was, on average, more expensive than publishing in fully open access journals. Price differences between these two categories were also reported earlier, indicating that prices for fully open access journals were lower on average [@Solomon_2012; @Pinfield_2015]. In 2014 and 2015, the mean price for fully open access journals calculated from all data-sets was below the DFG price cap of € 2,000.
 
 ## Crossref indexing{.unnumbered}
 
@@ -239,15 +239,12 @@ agencies <- doi_miss %>%
   rbind(c("Crossref", nrow(cr)),.)
 
 agencies <- data.frame(table(unlist(doi_miss$doi_agency)))
-
-
 ```
 
-To identify publication fee spending on the article-level, as well as to gather bibliographic metadata, DOIs were a mandatory part of the Open APC initiative's data collection activities. The participating institutions reported DOIs for `r my_apc %>% filter(!is.na(doi)) %>% nrow()` out of `r nrow(my_apc)` articles. Using these DOIs, we retrieved additional metadata from Crossref for `r nrow(cr)` publications, representing `r nrow(cr) / nrow(my_apc) * 100` % of the total article volume. Articles for which no metadata could be obtained, were registered with the DOI agency DataCite (10 articles) or Medra (two articles). For eight articles, our parser could not gather the XML resource, although these publications were registered with Crossref at the time of our study. Seven DOIs reported to the Open APC initiative did not resolve.
+To identify publication fee spending at article level and to gather bibliographic metadata, DOIs were a mandatory part of the Open APC initiative's data collection activities. The participating institutions reported DOIs for `r my_apc %>% filter(!is.na(doi)) %>% nrow()` out of `r nrow(my_apc)` articles. Using these DOIs, we retrieved additional metadata from Crossref for `r nrow(cr)` publications, representing `r nrow(cr) / nrow(my_apc) * 100` % of the total article volume. Articles for which no metadata could be obtained, were registered with the DOI agency DataCite (10 articles) or Medra (two articles). For eight articles, our parser could not gather the XML resource, although these publications were registered with Crossref at the time of our study. Seven DOIs reported to the Open APC initiative could not be resolved.
 
 
 ## Cost data by publisher and journal{.unnumbered}
-
 
 ```{r}
 apc_publisher <- my_apc
@@ -257,7 +254,7 @@ apc_publisher$publisher <- ifelse(apc_publisher$publisher %in% publisher_, apc_p
 apc_publisher$publisher <- factor(apc_publisher$publisher, levels=c(publisher_, "Other")) 
 ```
 
-We used the DOI to automatically fetch publisher and journal names for each article from the Crossref REST API. Table 2 shows the top ten publishers in terms of the number of financially supported articles. These publishers represented `r apc_publisher %>% filter(!publisher == "Other") %>% nrow() / my_apc %>% nrow() * 100` % of all articles include din our data-set. In total, payments were made to `r my_apc %>% group_by(publisher) %>% summarize(n()) %>% nrow()` publishing houses. In comparison with data from the UK, we observed a greater share on total spending of some open access publishers. @Pinfield_2015, for instance, reported remarkably lower numbers for the open access publishers MPDI, Copernicus, and Hindawi.
+We used the DOI to automatically fetch publisher and journal names for each article from the Crossref REST API. Table 2 shows the top ten publishers in terms of the number of financially supported articles. These publishers represented `r apc_publisher %>% filter(!publisher == "Other") %>% nrow() / my_apc %>% nrow() * 100` % of all articles included in our data-set. In total, payments were made to `r my_apc %>% group_by(publisher) %>% summarize(n()) %>% nrow()` publishing houses. Comparing these data with data from the UK, we observed that a greater share of total spending was directed to some open access publishers. @Pinfield_2015, for instance, reported remarkably lower numbers for the open access publishers MPDI, Copernicus, and Hindawi.
 
 **Table 2: Publication fees paid per publisher (in €)**
 
@@ -280,7 +277,7 @@ springer <- springer_nat %>% filter(member_id == "297")
 nature <- springer_nat %>% filter(member_id == "339")
 ```
 
-Most of publication fee spending in Germany was on articles published in Springer Nature journals, likely profiting from the merge with the open access publisher BioMed Central in 2008, and that between the well-established publishers Springer Science + Business Media and Nature Publishing Group in 2015. Using the Crossref-Member-ID instead of the publisher name, we were able to differentiate between journals formely published by Springer Science + Business Media and Nature Publishing Group. In terms of articles, the majority of payments made were for publications in journals formerly associated with Springer Science + Business Media. Springer Science + Business Media journals accounted for `r nrow(springer)` articles, representing `r nrow(springer) / nrow(springer_nat) * 100` % of the overall Springer Nature article volume recorded by the Open APC initiative, and `r sum(springer$euro) / sum(springer_nat$euro) * 100` % in terms of the amount being spent. Median publication fee spending slightly differed between Springer Science + Business Media (`r median(springer$euro)` €) and Nature Publishing (`r median(nature$euro)` €). However, price variation was higher for Nature Publishing journals (SD = `r sd(nature$euro)`€) compared with that of the former Springer Science + Business Media titles (SD = `r sd(springer$euro)` €). 
+Most of the publication fee spending in Germany was on articles published in Springer Nature journals, which likely reflects the results of mergers with the open access publisher BioMed Central in 2008 and between the well-established publishers Springer Science + Business Media and Nature Publishing Group in 2015. Using the Crossref-Member-ID instead of the publisher name, we were able to differentiate between journals formerly published by Springer Science + Business Media and Nature Publishing Group. In terms of articles, the majority of payments made were for publications in journals formerly associated with Springer Science + Business Media. Springer Science + Business Media journals accounted for `r nrow(springer)` articles, representing `r nrow(springer) / nrow(springer_nat) * 100` % of the overall Springer Nature article volume recorded by the Open APC initiative and `r sum(springer$euro) / sum(springer_nat$euro) * 100` % of the amount that was spent. Median publication fee spending differed slightly between Springer Science + Business Media (€ `r median(springer$euro)` €) and Nature Publishing (€ `r median(nature$euro)`). However, the price variation was higher for Nature Publishing journals (SD = € `r sd(nature$euro)`) than for the former Springer Science + Business Media titles (SD = € `r sd(springer$euro)`). 
 
 In contrast to Springer Nature, other well-established publishing houses such as Elsevier and Wiley-Blackwell ranked lower in our analysis.
 
@@ -306,7 +303,7 @@ table_3 <- format(tt,big.mark=',')
 #pander::pandoc.table(tt, split.cells = 7, caption = 'Publication fees paid per journal (in €)', justify = 'lrrrrrr')
 ```
 
-Prices also varied within journals. Based on the number of articles paid for, Table 3 illustrates the top ten out of `r my_apc %>% group_by(journal_full_title) %>% summarize(n()) %>% nrow()` journals. We normalised PLOS journal titles, because the name changes from "PLoS" to "PLOS" was only partly represented in the Crossref metadata at the time of our study. Articles published in the top ten journals represent `r apc_journal %>% filter(!journal_full_title == "Other") %>% nrow() / my_apc %>% nrow() * 100` % of the overall article volume. The multidisciplinary journal PLOS ONE ranked highest. In addition, the journals New Journal of Physics, Atmospheric Chemistry and Physics Discussions and Frontiers in Psychology, all of which publish contributions from all branches of their respective discipline, were also well represented in our study. In the case of Atmospheric Chemistry and Physics Discussions, the large price range can be explained by the fact that this journal charges per page and also takes the submission's file format into consideration.
+Prices also varied within journals. Table 3 illustrates the top ten out of `r my_apc %>% group_by(journal_full_title) %>% summarize(n()) %>% nrow()` journals, based on the number of supported articles. We normalised PLOS journal titles because the name change from "PLoS" to "PLOS" was only partially represented in the Crossref metadata at the time of our study. Articles published in the top ten journals represented `r apc_journal %>% filter(!journal_full_title == "Other") %>% nrow() / my_apc %>% nrow() * 100` % of the overall article volume. The multidisciplinary journal PLOS ONE ranked highest. In addition, the journals New Journal of Physics, Atmospheric Chemistry and Physics Discussions and Frontiers in Psychology, all of which publish contributions from all branches of their respective discipline, were also well represented in our study. In the case of Atmospheric Chemistry and Physics Discussions, the large price range can be explained by the fact that this journal charges per page and takes the submission's file format into consideration.
 
 # Discussion{.unnumbered}
 
