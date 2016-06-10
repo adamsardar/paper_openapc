@@ -2,8 +2,8 @@
 title: 'A Study of Institutional Spending on Open Access Publication Fees in Germany'
 author:
 - Najko Jahn, Bielefeld University Library, Bielefeld University 
-- <a href="http://orcid.org/0000-0002-5111-2788">Marco Tullney</a>, TIB - German National Library of Science and Technology, Hannover, Germany
-date: "7 April 2016"
+- Marco Tullney, German National Library of Science and Technology (TIB), Hannover, Germany
+date: "10 June 2016"
 output:
   pdf_document:
     fig_caption: yes
