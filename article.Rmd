@@ -208,7 +208,7 @@ table_1 <- format(tt,big.mark=',')
 
 ```
 
-## Comparison of related cost data-sets
+## Comparison of related cost data-sets{.unnumbered}
 
 Table 2 compares the Open APC spending data with that of the Austrian FWF, as well as with Jisc's and Wellcome Trust's expenditures. Prices were converted according to the average Euro exchange rate during the examined periods and were gathered for both fully open access journals and hybrid journals. The comparison revealed that the Open APC initiative lacked cost information about hybrid journals, whereas the related Austrian and UK open data initiatives reported a large share of spending on these journals between 2014 and 2015. Over the years 2005-2015, `r my_apc %>% group_by(institution) %>% filter(is_hybrid == TRUE) %>% summarise() %>% nrow()` out of `r length(unique(my_apc$institution))` German universities and research institutions reported `r my_apc %>% filter(is_hybrid == TRUE) %>% nrow()` hybrid journal articles to the Open APC initiative, representing `r (my_apc %>% filter(is_hybrid == TRUE) %>% nrow() / my_apc %>% nrow()) * 100` % of all articles included in the data-set. In contrast, in terms of the number of supported articles and the amount spent on publication fees, the Open APC data-set provided more comprehensive price information for fully open access journals than did the Austrian and UK initiatives.
 
@@ -392,4 +392,4 @@ We thank Andrea Hacker and Ada-Charlotte Regelmann for their valuable comments o
 
 [^25]: <https://github.com/CrossRef/rest-api-doc/blob/master/rest_api.md>
 
-[^26]: SCOAP^3^, the Sponsoring Consortium for Open Access Publishing in Particle Physics, is a unique approach to convert former subscription journals in high-energy physics to open access journals under a CC BY license. The consortiums, led by CERN, pays publishers centrally, based on previously agreed APCs and an overall price cap, and retrieves its funds from organisations and countries based on their share in the articles published in the covered journals. German universities participate through an initiative led by the German National Library of Science and Technology that received additional funding from DFG.
+[^26]: SCOAP^3^, the Sponsoring Consortium for Open Access Publishing in Particle Physics, is a unique approach to convert former subscription journals in high-energy physics to open access journals under a CC BY license. The consortium, led by CERN, pays publishers centrally, based on previously agreed APCs and an overall price cap, and retrieves its funds from organisations and countries based on their share in the articles published in the covered journals. German universities participate through an initiative led by the German National Library of Science and Technology that received additional funding from DFG.
