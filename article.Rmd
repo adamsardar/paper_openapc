@@ -389,7 +389,7 @@ We thank Andrea Hacker and Ada-Charlotte Regelmann for their valuable comments o
 
 [^23]: <https://github.com/OpenAPC/openapc-de/wiki/Handreichung-Dateneingabe>
 
-[^24]: <hhttps://github.com/OpenAPC/openapc-de/releases/tag/v2.4.3>
+[^24]: <https://github.com/OpenAPC/openapc-de/releases/tag/v2.4.3>
 
 [^25]: <https://github.com/CrossRef/rest-api-doc/blob/master/rest_api.md>
 
