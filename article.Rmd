@@ -15,7 +15,7 @@ output:
     number_sections: no
     theme: readable
 bibliography: literatur.bib
-csl: frontiers.csl
+csl: frontiers100.csl
 
 
 ---
