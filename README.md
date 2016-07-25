@@ -1,26 +1,32 @@
 ## About
 
-The article is written in [R Markdown](http://rmarkdown.rstudio.com/).
-This repository contains the dataset used as well as all analytical steps
-involved. Also bibliography and latex styles are available.
+The article is written in [R Markdown](http://rmarkdown.rstudio.com/). This
+repository contains the datasets used as well as all data gathering methods and
+analytical steps involved. Also bibliography and latex styles are shared.
 
 Before generating the paper, make sure you have all R packages installed.
 
 ## Generate the paper
 
-On the command line interface, execute the article file:
+To replicate the analytical steps including tables and figures, execute the
+article file via the command line interface:
 
 ```
 Rscript -e "rmarkdown::render('article.Rmd')"
 ```
 
-HTMl version (available through the `gh-pages` branch):
+## Data collection methods used
 
-```
-Rscript -e "rmarkdown::render('article.Rmd', output_format = 'html_document', output_file = 'index.html')"
-```
+### Open APC data-set
 
-Read html version: <http://njahn82.github.io/paper_openapc/>
+The script [R/aggregation.r](R/aggregation.r) contains the source code used
+for enriching the original Open APC data.
+
+The helper function [R/cr_parse](R/cr_parse.r) was used to parse the Crossref XML obtained with the great [rcrossref client](https://github.com/ropensci/rcrossref).
+
+### Other cost data-sets
+
+[data/cost_data_uk/README.md](data/cost_data_uk/README.md) tracks how we gathered the values for Table 2. Again, this notebook is written in R Markdown ([data/cost_data_uk/README.Rmd](data/cost_data_uk/README.Rmd))
 
 ## Meta
 
